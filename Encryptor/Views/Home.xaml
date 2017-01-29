@@ -1,0 +1,128 @@
+﻿<UserControl x:Class="Encryptor.Views.Home"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="700">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
+                <!-- throw in some extra colour for our floating action button -->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Green.Named.Primary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Top" Margin="16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="1" Margin="24 0 0 0" VerticalAlignment="Center">
+                <TextBlock Style="{StaticResource MaterialDesignDisplay1TextBlock}" TextWrapping="Wrap">
+                    Welcome to Material Encryptor
+                </TextBlock>
+                <Button Style="{StaticResource MaterialDesignFlatButton}"
+                        Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}" 
+                        Margin="142,0,0,0" HorizontalAlignment="Left" Width="166">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Binoculars" />
+                        <TextBlock Margin="8 0 0 0"><Run Text="EXPLORE"/></TextBlock>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Bottom"
+                      Margin="0 0 0 32">
+            <Grid>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:Card Width="420" Margin="8 2 4 16" Height="270">
+                        <Grid VerticalAlignment="Stretch">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <materialDesign:PackIcon Kind="GithubCircle" Width="160" Height="160" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="16 16 16 8">Open Source</TextBlock>
+                                <TextBlock TextWrapping="Wrap" Margin="16 0 16 8" Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                           VerticalAlignment="Top">This project is completely open source. If you like it and want to say thanks you could hit the GitHub Star button, tweet or post about it, or tell your mum about it!</TextBlock>
+                            </StackPanel>
+                            <Border Grid.Row="1" Grid.ColumnSpan="2" BorderThickness="0 1 0 0" BorderBrush="{DynamicResource MaterialDesignDivider}" Padding="8">
+                                <DockPanel>
+                                    <Button Style="{DynamicResource MaterialDesignFlatButton}" 
+                                            DockPanel.Dock="Right"
+                                            x:Name="DonateButton" Click="RepoButton_OnClick"
+                                            Margin="0,22,0,19" Width="106" Height="Auto">
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Kind="SourceBranch" Height="19" Width="17" />
+                                            <TextBlock Margin="8 0 0 0" VerticalAlignment="Center" Width="54" ><Run Text="Fork Us"/></TextBlock>
+                                        </StackPanel>
+                                    </Button>
+                                    <TextBlock Foreground="{DynamicResource MaterialDesignBodyLight}" TextWrapping="Wrap" Margin="16,17,16,16" VerticalAlignment="Center" Text="Check our repository, if you are a superhero, love design and want to create this world better" Height="33"/>
+                                </DockPanel>
+                            </Border>
+                        </Grid>
+                    </materialDesign:Card>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+        <materialDesign:PopupBox Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
+                                 HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                 Margin="32" Grid.Row="1">
+            <StackPanel>
+                <Button ToolTip="GitHub" Click="GitHubButton_OnClick">
+                    <materialDesign:PackIcon Kind="GithubCircle" Height="20" Width="20" />
+                </Button>
+                <Button ToolTip="Twitter" Click="TwitterButton_OnClick"
+                        Background="{DynamicResource PrimaryHueMidBrush}"
+                        Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
+                    <materialDesign:PackIcon Kind="Twitter" />
+                </Button>
+                <Button ToolTip="Chat" Click="ChatButton_OnClick">
+                    <!-- mix up the colours by brinking in a named palette (see merged dictionaries at top) -->
+                    <Button.Background>
+                        <SolidColorBrush Color="{StaticResource GreenPrimary500}" />
+                    </Button.Background>
+                    <Button.Foreground>
+                        <SolidColorBrush Color="{StaticResource GreenPrimary500Foreground}" />
+                    </Button.Foreground>
+                    <materialDesign:PackIcon Kind="Message" />
+                </Button>
+                <Button ToolTip="Email" Click="EmailButton_OnClick"
+                        Background="{DynamicResource SecondaryAccentBrush}"
+                        Foreground="{DynamicResource SecondaryAccentForegroundBrush}"
+                        >
+                    <materialDesign:PackIcon Kind="Email" />
+                </Button>
+                <Button ToolTip="Feel like you want to make a donation? No, please, no!" 
+                        Click="DonateButton_OnClick">
+                    <Button.Background>
+                        <SolidColorBrush Color="{StaticResource GreenPrimary200}" />
+                    </Button.Background>
+                    <Button.Foreground>
+                        <SolidColorBrush Color="{StaticResource GreenPrimary200Foreground}" />
+                    </Button.Foreground>
+                    <materialDesign:PackIcon Kind="Gift" />
+                </Button>
+            </StackPanel>
+        </materialDesign:PopupBox>
+    </Grid>
+</UserControl>
